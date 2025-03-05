@@ -1,37 +1,63 @@
-import './App.css'
-import Productos from './components/productos';
-import Header from './components/Header';
-import { Footer } from './components/Footer';
+import "./App.css";
+import Productos from "./components/Productos/Productos";
+import Header from "./components/ui/Header";
+import Footer from "./components/ui/Footer";
+import NuevoProducto from "./components/Productos/NuevoProducto";
+import { useState } from "react";
 function App() {
-  const productos = [{
-    nombre: 'Pantalla táctil',
-    precio: 45.6,
-    fecha: new Date(),
-    stock: 4
-  },
-  {
-    nombre: 'Ratón inalámbrico',
-    precio: 34.8,
-    fecha: new Date(),
-    stock: 2
-  },
-  {
-    nombre: 'Teclado',
-    precio: 22.6,
-    fecha: new Date(),
-    stock: 0
-  }
-];
-  const header = 'Welcome to my page!';
-  const footer = '2025 - DSM';
+  const [productos, setProductos] = useState([
+    {
+      id: Math.random().toString(),
+      nombre: "Pantalla táctil",
+      precio: 45.6,
+      fecha: new Date(),
+      stock: 4,
+    },
+    {
+      id: Math.random().toString(),
+      nombre: "Ratón inalámbrico",
+      precio: 34.8,
+      fecha: new Date(),
+      stock: 2,
+    },
+    {
+      id: Math.random().toString(),
+      nombre: "Teclado",
+      precio: 22.6,
+      fecha: new Date(),
+      stock: 0,
+    },
+    {
+      id: Math.random().toString(),
+      nombre: "Ratón inalámbrico",
+      precio: 34.8,
+      fecha: new Date(),
+      stock: 2,
+    },
+  ]);
+
+  const anadirProducto = (producto) => {
+    setProductos((prevProductos) => {
+      return [producto, ...prevProductos];
+    });
+  };
+
+  const borrarProducto = (id) => {
+    setProductos((prevProductos) => {
+      return prevProductos.filter((elemento) => {
+        return elemento.id != id;
+      });
+    });
+  };
+
   return (
     <>
-      <Header header={header}/>
-      <p>It`s working</p>
-      <Productos productos={productos}/>
-      <Footer footer={footer}/>
+      <Header />
+      <NuevoProducto anadirProducto={anadirProducto} />
+      <Productos productos={productos} borrarProducto={borrarProducto} />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
