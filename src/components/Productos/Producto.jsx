@@ -3,6 +3,7 @@ import FechaProducto from "./FechaProducto";
 import { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ProductosContext from "../../store/ProductosContext";
+import { Link } from "react-router";
 
 function Producto(props) {
   const [nombre, setNombre] = useState(props.producto.nombre);
@@ -29,6 +30,9 @@ function Producto(props) {
       <FechaProducto fecha={fecha} />
       <div className="producto__descripcion">
         <h2>Nombre: {nombre}</h2>
+        <Button variant="outline-warning">
+          <Link to={`/product/${props.producto.id}`}>detalles</Link>
+        </Button>
         <div className="producto__precio">{precio}</div>
         <Button variant="warning" onClick={handleShow} centered>
           Ver detalles
